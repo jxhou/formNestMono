@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Docker: Attach to Backend",
+      "port": 9229,
+      "restart": true,
+      "address": "localhost",
+      "localRoot": "${workspaceFolder}/survey-form",
+      "remoteRoot": "/usr/src/app",
+      "sourceMaps": true
+    }
+  ]
+}

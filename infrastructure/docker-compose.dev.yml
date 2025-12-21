@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    # Mount the source code for hot reloading
+    volumes:
+      - ../react-vite:/app
+      # Anonymous volume for node_modules to avoid host/container mismatch
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://backend:3000
+    # Install dependencies and run dev server
+    command: sh -c "npm install && npm run dev -- --host"
+    depends_on:
+      - backend
+
+  backend:
+    image: node:20-alpine
+    working_dir: /usr/src/app
+    # Mount the source code for hot reloading
+    volumes:
+      - ../survey-form:/usr/src/app
+      # Anonymous volume for node_modules
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+      - "9229:9229" # Debug port
+    environment:
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=devuser
+      - DATABASE_PASSWORD=devpass
+      - DATABASE_DB=devdb
+      - REDIS_HOST=redis
+    # Install dependencies and run dev server
+    command: sh -c "npm install && npm run start:debug:container"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+      POSTGRES_DB: devdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@test.com
+      PGADMIN_DEFAULT_PASSWORD: adminpass
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data_dev:/var/lib/pgadmin
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata_dev:/data
+
+volumes:
+  pgdata_dev:
+  pgadmin_data_dev:
+  redisdata_dev:
