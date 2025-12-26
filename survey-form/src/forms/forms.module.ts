@@ -4,8 +4,10 @@ import { Form } from './models/form.model';
 import { FormsService } from './forms.service';
 import { FormsController } from './forms.controller';
 
+import { AuthModule } from '../auth/auth.module';
+
 @Module({
-  imports: [SequelizeModule.forFeature([Form])],
+  imports: [SequelizeModule.forFeature([Form]), AuthModule],
   controllers: [FormsController],
   providers: [FormsService],
 })
