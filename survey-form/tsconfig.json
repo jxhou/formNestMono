@@ -25,5 +25,5 @@
   "ts-node": {
     "files": true
   },
-  "include": ["src/**/*", "src/types/**/*.d.ts", "migrations/YYYYMMDDHHMMSS-create-users-table.ts"]
+  "include": ["src/**/*", "test/**/*", "src/types/**/*.d.ts", "src/database/migrations/YYYYMMDDHHMMSS-create-users-table.ts", "config/**/*", "config/database.config.ts"]
 }

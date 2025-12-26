@@ -1,5 +1,9 @@
-import { SequelizeOptions } from 'sequelize-typescript';
-import { User } from '../src/users/models/user.model'; // Assuming this path is correct from your project root
+import type { SequelizeOptions } from 'sequelize-typescript';
+import { createRequire } from 'module';
+// @ts-ignore
+const localRequire = createRequire(import.meta.url);
+const { User } = localRequire('../users/models/user.model');
+
 import 'dotenv/config';
 
 const databaseConfig: SequelizeOptions = {
@@ -14,11 +18,14 @@ const databaseConfig: SequelizeOptions = {
 };
 
 // This CommonJS export is used by config/config.js for sequelize-cli
-module.exports = {
-  development: databaseConfig,
-  test: databaseConfig,
-  production: databaseConfig,
-};
+try {
+  // @ts-ignore
+  module.exports = {
+    development: databaseConfig,
+    test: databaseConfig,
+    production: databaseConfig,
+  };
+} catch {}
 
 // This ES Module export is for the NestJS application
 export default databaseConfig;

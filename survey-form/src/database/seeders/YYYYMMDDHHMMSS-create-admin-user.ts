@@ -1,7 +1,7 @@
 'use strict';
 import { QueryInterface } from 'sequelize';
 import * as bcrypt from 'bcrypt';
-import { Role } from '../src/common/enums/role.enum';
+import { Role } from '../../common/enums/role.enum';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
