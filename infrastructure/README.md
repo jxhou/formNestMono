@@ -15,6 +15,10 @@ To start all services in the background:
 docker-compose up -d
 ```
 
+or 
+
+start/stop all containers via docker desktop in Windows environment.
+
 
 ## Local Development
 

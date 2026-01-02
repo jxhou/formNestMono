@@ -1,11 +1,12 @@
 const path = require('path');
 
 // Force ts-node to use the dedicated CommonJS config
-process.env.TS_NODE_PROJECT = path.join(__dirname, 'tsconfig.sequelize.json');
-require('ts-node/register');
+// process.env.TS_NODE_PROJECT = path.join(__dirname, 'tsconfig.sequelize.json');
+// require('ts-node/register');
 
 module.exports = {
-  'config': path.resolve('src/config', 'database.config.ts'),
+  // 'config': path.resolve('src/config', 'database.config.ts'),
+  'config': path.resolve('src/config', 'config.js'),
   'models-path': path.resolve('src/database/models.index.ts'),
   'seeders-path': path.resolve('src/database/seeders'),
   'migrations-path': path.resolve('src/database/migrations')

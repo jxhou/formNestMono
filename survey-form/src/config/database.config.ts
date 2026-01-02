@@ -1,8 +1,9 @@
 import type { SequelizeOptions } from 'sequelize-typescript';
-import { createRequire } from 'module';
+// import { createRequire } from 'module';
 // @ts-ignore
-const localRequire = createRequire(import.meta.url);
-const { User } = localRequire('../users/models/user.model');
+// const localRequire = createRequire(import.meta.url);
+// const { User } = localRequire('../users/models/user.model');
+const UserModel = require('../users/models/user.model');
 
 import 'dotenv/config';
 
@@ -13,7 +14,7 @@ const databaseConfig: SequelizeOptions = {
   username: process.env.DB_USERNAME || 'devuser',
   password: process.env.DB_PASSWORD || 'devpass',
   database: process.env.DB_DATABASE || 'devdb',
-  models: [User],
+  models: [UserModel.User],
   // sync: { alter: true } should be disabled when using migrations
 };
 

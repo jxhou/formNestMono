@@ -37,7 +37,7 @@ const database = process.env.DATABASE_DB || 'devdb';
   ],
   controllers: [AppController],
   // providers: [AppService, UsersService],
-   providers: [AppService],
+  providers: [AppService],
 })
 
 export class AppModule implements NestModule {
