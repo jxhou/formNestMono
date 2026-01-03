@@ -24,6 +24,6 @@ import { JwtStrategy } from './jwt.strategy';
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, SessionSerializer, RolesGuard],
   // If other modules need to use AuthService, you might export it:
-  exports: [AuthService],
+  exports: [AuthService, JwtModule, PassportModule, JwtStrategy],
 })
 export class AuthModule {}

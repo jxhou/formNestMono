@@ -37,7 +37,7 @@ When the application is seeded for the first time, a default administrator accou
 
 These credentials are set by environment variables but will fall back to the following defaults if the variables are not set:
 
-- **Username**: `admin`
+- **Username**: `admin@test.com`
 - **Password**: `adminpass`
 
 ### Creating the Admin User
@@ -221,6 +221,10 @@ When this endpoint is called, the server destroys the session. It also instructs
 ```
 
 ## 6. Public Routes 
-src/forms/forms.controller.ts
 
 src/form-fields/form-fields.controller.ts
+
+## 7. Protected Resource Routes (JWT Required)
+The following resources are now protected by `JwtAuthGuard`. You must provide a valid `Authorization: Bearer <token>` header to access them.
+
+- **Forms**: `src/forms/forms.controller.ts`

@@ -7,14 +7,22 @@ This monorepo has three main components:
 
 
 ## Infrastructure
--- go to infrastructure folder, then run docker-compose up -d to start all services in the background.
+-- go to infrastructure folder.
+
+**For Production/Stand-alone:**
+run `docker-compose up -d` to start all services in the background.
+
+**For Local Development (Hot-Reload):**
+run `docker-compose -f docker-compose.dev.yml up --build`
+This shares your local code with the container so changes apply immediately.
+
 To access pgadmin: localhost:8080
 
 -- See more detail in infrastructure/README.md
 
 ## Survey-form
 run sequelize-cli seeder to add a default admin user:
--- user: admin
+-- user: admin@test.com
 -- password: adminpass
 
 ```bash

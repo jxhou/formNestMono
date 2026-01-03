@@ -6,7 +6,7 @@ import { Role } from '../../common/enums/role.enum';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface: QueryInterface, Sequelize) {
-    const adminUsername = process.env.ADMIN_USERNAME || 'admin';
+    const adminUsername = process.env.ADMIN_USERNAME || 'admin@test.com';
     const adminPassword = process.env.ADMIN_PASSWORD || 'adminpass';
 
     const salt = await bcrypt.genSalt();
