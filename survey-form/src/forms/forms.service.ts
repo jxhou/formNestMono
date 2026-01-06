@@ -42,11 +42,11 @@ export class FormsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} form`;
+    return this.formModel.findByPk(id, { include: [FormField] });
   }
 
   update(id: number, updateFormDto: UpdateFormDto) {
-    return `This action updates a #${id} form`;
+    return this.formModel.update(updateFormDto, { where: { id } });
   }
 
   remove(id: number) {

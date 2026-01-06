@@ -2,6 +2,35 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach",
+      "port": 9229,
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "cwd": "${workspaceFolder}/survey-form",
+      "restart": true,
+      "sourceMaps": true,
+      "sourceMapPathOverrides": {
+        "../src/*": "${workspaceFolder}/survey-form/src/*",
+        "*/survey-form/*": "${workspaceFolder}/survey-form/*"
+      }
+    },
+    {
+      "name": "Attach local survey-form",
+      "port": 9229,
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node",
+      "restart": true,
+      "localRoot": "${workspaceFolder}/survey-form",
+      "remoteRoot": "/home/unix/nestJS/formNestMono/survey-form",
+    },
+   
+    {
       "type": "node",
       "request": "attach",
       "name": "Docker: Attach to Backend",

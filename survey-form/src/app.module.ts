@@ -1,6 +1,10 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { join } from 'path';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,6 +24,12 @@ const database = process.env.DATABASE_DB || 'devdb';
   imports: [
     AuthModule,
     FormsModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host, 
@@ -43,6 +53,28 @@ const database = process.env.DATABASE_DB || 'devdb';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(cors(), helmet(), LoggerMiddleware).forRoutes('*');
+      .apply(
+        cors(),
+        helmet({
+          crossOriginEmbedderPolicy: false,
+          contentSecurityPolicy: {
+            directives: {
+              imgSrc: [
+                `'self'`,
+                'data:',
+                'apollo-server-landing-page.cdn.apollographql.com',
+              ],
+              scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+              manifestSrc: [
+                `'self'`,
+                'apollo-server-landing-page.cdn.apollographql.com',
+              ],
+              frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+            },
+          },
+        }),
+        LoggerMiddleware,
+      )
+      .forRoutes('*');
   }
 }

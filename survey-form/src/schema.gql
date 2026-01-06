@@ -1,0 +1,26 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type FormField {
+  id: Int!
+  formId: Int!
+  name: String!
+  type: String!
+  required: Boolean!
+  order: Int!
+  active: Boolean!
+  form: Form!
+}
+
+type Form {
+  id: Int!
+  name: String!
+  state: Int!
+  formFields: [FormField!]!
+}
+
+type Query {
+  forms: [Form!]!
+  form(id: Int!): Form!
+}

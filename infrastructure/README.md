@@ -41,6 +41,23 @@ docker-compose -f docker-compose.dev.yml up --build
 - **Hot Reloading**: Changes to `react-vite/src` or `survey-form/src` will automatically trigger updates.
 - **Isolated Dependencies**: `node_modules` are managed inside the container to prevent conflicts.
 
+### Debugging
+You can start debugging session in the context of the formNestMono folder. It is bit challenging to map the source code to the subfolder of the survey-form folder.
+
+*** Start Development Environment
+```bash
+docker-compose -f docker-compose.dev.yml up --build
+```
+--- You can then debug the survey-form backend in the container by using the `Docker: Attach to Backend` configuration in the `launch.json` file.
+
+*** Start local survey-form backend
+```bash
+npm run start:debug
+```
+--- You can then debug the survey-form backend started by npm run start:debug by using the `Attach local survey-form` configuration in the `launch.json` file.
+
+Or You can also start vscode from the survey-form folder and start debugging the backend by using the local launch.json file.
+
 ## Service Access
 
 Once the containers are running, you can access the services at the following URLs:
