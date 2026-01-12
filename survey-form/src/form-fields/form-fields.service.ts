@@ -17,11 +17,8 @@ export class FormFieldsService {
   }
 
   findAll(query: { name?: string; state?: number }) {
-    const findOptions: FindOptions = {
-      include: [Form],
-    };
+    const findOptions: FindOptions = {};
     const where: WhereOptions = {};
-    findOptions.where = where;
   
     if (query.name) {
       where.name = query.name;
@@ -30,14 +27,16 @@ export class FormFieldsService {
     if (query.state) {
       where.state = query.state;
     }
+
+    if (Object.keys(where).length) {
+      findOptions.where = where;
+    }
   
     return this.formFieldsModel.findAll(findOptions);
-  
-    //return `This action returns all formFields`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} formField`;
+    return this.formFieldsModel.findByPk(id);
   }
 
   update(id: number, updateFormFieldDto: UpdateFormFieldDto) {

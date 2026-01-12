@@ -1,4 +1,6 @@
 # Debug
+The debug instructions are based on the survey-form context. Open the survey-form folder in vscode and follow the instructions.
+
 The NestJS Application can run in two modes: local mode or docker mode.
 
 ## Local Mode
@@ -130,6 +132,7 @@ This method gives you full control to debug the entire lifecycle of your applica
 
 
   With this setup, we can debug the app running inside the container by selecting "attach to NestJS (Dokcer)" from vscode.
+
     .vscode/launch.json
       ```json
       {
@@ -148,5 +151,25 @@ This method gives you full control to debug the entire lifecycle of your applica
       }
       ```
 
+## Debugging Unit Tests
+--- select a unit test file you want to debug, then
+---select "Debug unit Jest: Current File", from the run and debug view.
+
+or
+--- npm run test:debugBrk, and then 
+--- attach to the process in vscode
+
+The first option is more user-friendly, but the second option is more flexible.
+
+
+## Debugging E2E Tests
+--- select a e2e test file you want to debug, then
+--- select "Debug E2E Jest: Current File", from the run and debug view.
+
+or
+--- npm run test:e2e:debug, and then 
+--- attach to the process in vscode
+
+The first option is more user-friendly, but the second option is more flexible.
 
 

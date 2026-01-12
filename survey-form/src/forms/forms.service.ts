@@ -4,6 +4,7 @@ import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 import { Form } from './models/form.model';
 import { FormField } from 'src/form-fields/models/form-field.model';
+import { FormPrincipal } from 'src/form-principal/models/form-principal.model';
 
 import { FindOptions, WhereOptions } from 'sequelize';
 
@@ -20,10 +21,7 @@ export class FormsService {
   }
 
   async findAll(query: { name?: string; state?: number }) {
-    const findOptions: FindOptions = {
-      include: [FormField],
-      raw: true, // Sequelize will return plain objects
-    };
+    const findOptions: FindOptions = {};
     const where: WhereOptions = {};
 
     if (query.name) {
@@ -41,8 +39,10 @@ export class FormsService {
     return this.formModel.findAll(findOptions);
   }
 
-  findOne(id: number) {
-    return this.formModel.findByPk(id, { include: [FormField] });
+  async findOne(id: number) {
+    const form = await this.formModel.findByPk(id);
+    return form;
+    // return this.formModel.findByPk(id);
   }
 
   update(id: number, updateFormDto: UpdateFormDto) {

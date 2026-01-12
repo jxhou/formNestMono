@@ -13,11 +13,22 @@ type FormField {
   form: Form!
 }
 
+type FormPrincipal {
+  id: Int!
+  formId: Int!
+  form: Form!
+  principal: Int!
+  role: Int!
+  name: String!
+  status: Int!
+}
+
 type Form {
   id: Int!
   name: String!
   state: Int!
   formFields: [FormField!]!
+  formPrincipals: [FormPrincipal!]!
 }
 
 type Query {

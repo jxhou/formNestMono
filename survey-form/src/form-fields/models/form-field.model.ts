@@ -17,29 +17,29 @@ export class FormField extends Model {
   @ForeignKey(() => Form)
   @Column
   @Field(() => Int)
-  formId: number;
+  declare formId: number;
 
   @Column
   @Field()
-  name: string;
+  declare name: string;
 
   @Column
   @Field()
-  type: string;
+  declare type: string;
 
   @Column({ defaultValue: false })
   @Field()
-  required: boolean;
+  declare required: boolean;
 
   @Column({ defaultValue: 0 })
   @Field(() => Int)
-  order: number;
+  declare order: number;
 
   @Column({ defaultValue: true })
   @Field()
-  active: boolean;
+  declare active: boolean;
 
   @BelongsTo(() => Form)
   @Field(() => Form)
-  form: Form;
+  declare form: Form;
 }

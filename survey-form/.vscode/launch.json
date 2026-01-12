@@ -17,6 +17,31 @@
       "skipFiles": [
         "<node_internals>/**"
       ]
+    },
+    {
+      "name": "Debug unit Jest: Current File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      // "args": [ "--runInBand", "--config", "jest.config.js", "${file}" ],
+      "args": [ "--runInBand", "${file}" ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": { "NODE_ENV": "test" }
+    },
+     {
+      "name": "Debug e2e Jest: Current File",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": [ "--runInBand", "--config", "${workspaceFolder}/test/jest-e2e.json", "${file}" ],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": { 
+        "NODE_ENV": "test",
+        "HOME": "${env:HOME}", // This ensures the WSL HOME variable is passed through
+        "DOCKER_HOST": "unix:///var/run/docker.sock"
+      }
     }
   ]
 }

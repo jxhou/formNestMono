@@ -13,6 +13,7 @@ import { FormFieldsModule } from './form-fields/form-fields.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { UsersModule } from './users/users.module';
+import { FormPrincipalModule } from './form-principal/form-principal.module';
 
 const host = process.env.DATABASE_HOST || 'localhost';
 const port = process.env.DATABASE_PORT ? parseInt(process.env.DATABASE_PORT, 10) : 5432;
@@ -43,6 +44,7 @@ const database = process.env.DATABASE_DB || 'devdb';
       sync: { alter: true }, // This is a more specific and safer option
     }),
     FormFieldsModule,
+    FormPrincipalModule,
     UsersModule,
   ],
   controllers: [AppController],

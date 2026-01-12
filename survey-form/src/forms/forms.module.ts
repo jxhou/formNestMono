@@ -7,8 +7,14 @@ import { FormsResolver } from './forms.resolver';
 
 import { AuthModule } from '../auth/auth.module';
 
+import { FormField } from '../form-fields/models/form-field.model';
+import { FormPrincipal } from '../form-principal/models/form-principal.model';
+
 @Module({
-  imports: [SequelizeModule.forFeature([Form]), AuthModule],
+  imports: [
+    SequelizeModule.forFeature([Form, FormField, FormPrincipal]),
+    AuthModule,
+  ],
   controllers: [FormsController],
   providers: [FormsService, FormsResolver],
 })
