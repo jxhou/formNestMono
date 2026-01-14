@@ -95,6 +95,18 @@ To run the GraphQL integration tests, use the following command:
 
 ```bash
 npm run test:e2e -- test/graphQL
+
+--- run specific test:
+npm run test:e2e test/graphQL/form.integration.e2e-spec.ts
 ```
+
+Debug particular test from vscode:
+--- select the test file, and then select "Debug E2E Jest: Current File", from the run and debug view.
+
+or
+--- npm run test:e2e:debug, and then 
+--- attach to the process in vscode
+
+
 
 *Note: Ensure Docker is running on your machine as Testcontainers requires it.*

@@ -27,9 +27,10 @@ We could build seperated models for GraphQL and Sequelize models, but it is not 
 The existing rest api for both forms and form fields is not affected by this change.
 
 ### 2. Forms Resolver
-A new `FormsResolver` (`src/forms/forms.resolver.ts`) was created to handle queries:
+A new `FormsResolver` (`src/forms/forms.resolver.ts`) was created to handle queries/mutations:
 - `forms`: Fetches all forms, including their fields.
 - `form(id)`: Fetches a specific form by ID.
+- `createForm(createFormInput: CreateFormWithFieldsInput!): Form!`: Creates a new form with fields.
 
 ### 3. Service Updates
 `FormsService` was updated to implement a proper `findOne(id)` method using Sequelize's `findByPk` with associations included.
@@ -43,6 +44,7 @@ A new `FormsResolver` (`src/forms/forms.resolver.ts`) was created to handle quer
 ## Verification
 The implementation can be verified by navigating to:
 `http://localhost:3000/graphql`
+in Apollo sandbox.
 
 ### Sample Query
 --- get all forms
@@ -94,3 +96,46 @@ with variables
   "formId": 1
 }
 ```
+
+--- create a form with fields
+```graphql
+mutation CreateForm($input: CreateFormWithFieldsInput!) {
+  createForm(createFormInput: $input) {
+    id
+    name
+    state
+    formFields {
+      id
+      name
+      type
+      order
+    }
+  }
+}
+```
+
+with variables
+```json
+{
+  "createFormInput": {
+    "name": "Customer Feedback Survey",
+    "state": 1,
+    "formFields": [
+      {
+        "name": "How was your experience?",
+        "type": "text",
+        "order": 1,
+        "required": true
+      },
+      {
+        "name": "Would you recommend us?",
+        "type": "boolean",
+        "order": 2,
+        "required": false
+      }
+    ]
+  }
+}
+
+```
+

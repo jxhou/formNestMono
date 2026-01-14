@@ -72,4 +72,40 @@ describe('Form GraphQL (integration)', () => {
     expect(res.body.data.forms[0].formFields.length).toBe(1);
     expect(res.body.data.forms[0].formFields[0].name).toBe('Age');
   });
+
+  it('fetches a form with fields', async () => {
+    const query = `
+      mutation CreateForm($input: CreateFormWithFieldsInput!) {
+        createForm(createFormInput: $input) {
+          id
+          name
+          formFields {
+            id
+            name
+            type
+          }
+        }
+      }
+    `;
+
+    const variables = {
+      input: {
+        name: 'Survey B',
+        state: 1,
+        formFields: [
+          {
+            name: 'Age',
+            type: 'number',
+          },
+        ],
+      },
+    };
+
+    const res = await gqlRequest(app, query, variables);
+
+    expect(res.body.data.createForm.name).toBe('Survey B');
+    expect(res.body.data.createForm.formFields.length).toBe(1);
+    expect(res.body.data.createForm.formFields[0].name).toBe('Age');
+    expect(res.body.data.createForm.formFields[0].type).toBe('number');
+  });
 });
